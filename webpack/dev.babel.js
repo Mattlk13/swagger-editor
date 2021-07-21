@@ -13,18 +13,15 @@ const devConfig = configBuilder(
     mangle: false,
     sourcemaps: true,
     includeDependencies: true,
-    includeStyles: true,
     emitWorkerAssets: false,
   },
   {
     mode: "development",
     entry: {
       "swagger-editor-bundle": [
-        "./src/polyfills.js", // TODO: remove?
         "./src/index.js",
       ],
       "swagger-editor-standalone-preset": [
-        "./src/polyfills", // TODO: remove?
         "./src/standalone/index.js",
       ],
       "swagger-editor": "./src/styles/main.less",

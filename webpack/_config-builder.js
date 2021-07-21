@@ -33,7 +33,16 @@ const baseRules = [
     },
   },
   { test: /\.(txt|yaml)$/, loader: "raw-loader" },
-  { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: "url-loader" },
+  {
+    test: /\.(png|jpg|jpeg|gif|svg)$/, use: [
+      {
+        loader: "url-loader",
+        options: {
+          esModule: false,
+        },
+      },
+    ],
+  },
   {
     test: /\.(woff|woff2)$/,
     loader: "url-loader?",
@@ -50,7 +59,6 @@ export default function buildConfig(
     mangle = true,
     sourcemaps = true,
     includeDependencies = true,
-    includeStyles = false,
     emitWorkerAssets = false,
   },
   customConfig
@@ -88,36 +96,6 @@ export default function buildConfig(
     ],
   })
 
-  //// Styles
-
-  baseRules.push({
-    test: [/\.less$/],
-    use: includeStyles
-      ? [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: { sourceMap: true },
-          },
-          {
-            loader: "postcss-loader",
-            options: {
-              sourceMap: true,
-              plugins: loader => [
-                require("cssnano")(),
-                require("autoprefixer")(),
-              ],
-            },
-          },
-          {
-            loader: "less-loader",
-            options: {
-              sourceMap: true,
-            },
-          },
-        ]
-      : "null-loader",
-  })
 
   const completeConfig = deepExtend(
     {},

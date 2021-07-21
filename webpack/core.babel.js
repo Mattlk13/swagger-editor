@@ -10,12 +10,11 @@ const result = configBuilder(
     mangle: true,
     sourcemaps: true,
     includeDependencies: false,
-    includeStyles: false,
     emitWorkerAssets: false,
   },
   {
     entry: {
-      "swagger-editor": ["./src/polyfills.js", "./src/index.js"],
+      "swagger-editor": ["./src/index.js"],
     },
 
     output: {
